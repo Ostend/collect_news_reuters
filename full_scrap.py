@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import time
 import re
-
+import json
 #Get first page url, then all sequential pages, you can determine how many pages.
 def next_page():
     global article_content
@@ -21,7 +21,7 @@ def next_page():
         d +=1
         next_url = 'https://www.reuters.com/news/archive/worldnews' + next_uri
         second_pages(next_url)   
-        while (counter >= 1 and counter <= 3):
+        while (counter >= 1 and counter <= 2):
             more_content_url = 'https://www.reuters.com/news/archive/worldnews?view=page&page={}&pageSize=10'.format(d)
             article_path = requests.get(more_content_url).text
             soup = BeautifulSoup(article_path, 'lxml')
@@ -33,7 +33,7 @@ def next_page():
             second_pages(next_url)
             counter += 1
             d += 1
-
+    
 #find all the links to the individual articles, clean them up (create_url) and put them in list second_list_uri, return the other functions aka the text file with cleaned up data.
 def second_pages(link_here):
     global second_list_uris
@@ -46,10 +46,12 @@ def second_pages(link_here):
         clean_urls=anchor_url.get('href')
         second_list_uris.append(clean_urls)
     #call all of our other functions!
+    #call the function that creates a list of full urls
     create_url(second_list_uris)
-    #^^ call the function that creates a list of full urls
+    #unpack url list to single url in order to open and go to single article
     single_article(all_urls)
-    seperate_articles(article_content)
+    #format the article list into text file
+    #seperate_articles(article_content)
                 
 #create the url for the individual article    
 def create_url(uri_list):
@@ -61,44 +63,48 @@ def create_url(uri_list):
 
 #go to the individual article to gather the text body, then clean it up by passing it into seperate_articles()
 def single_article(enter_urls):
-
+    global giant_list
+    giant_list = []
+    global nested_information  
+    #create a dictionary to go inside a big list of all the news articles collected.  
     for url in enter_urls:
+        nested_information = {"author": [], "headline":[], "article":[]}
         news_path = requests.get(url).text
         soup = BeautifulSoup(news_path, 'lxml')
-        news_article = soup.find_all('p', class_='Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x')
-
+        news_headline = soup.find('h1', class_='Headline-headline-2FXIq Headline-black-OogpV ArticleHeader-headline-NlAqj').text
+        news_author_messy = soup.find('p', class_='Byline-byline-1sVmo ArticleBody-byline-10B7D').a
+        
+        if(news_author_messy == None):
+            news_author = news_author_messy
+            nested_information['author'].append(news_author)
+        else: 
+            news_author = news_author_messy.text
+            
+            nested_information['author'].append(news_author)
+        
+        news_article = soup.find_all('p', class_='Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x')  
+        nested_information['headline'].append(news_headline)
+        #nested_information['author'].append(news_author)
+        #append all the <p> tags to the individual article key value in the dictionary
         for paragraph in news_article:
             par = paragraph.text
-            article_content.append(par)
-    seperate_articles(article_content)
+            article_content.append(par) 
+            nested_information['article'].append(par)
+        giant_list.append(nested_information)
+        #print(len(giant_list))
+    #seperate_articles(article_content)
+    dict_file(giant_list)
 
 
-#needs work, but it cleans up the list of <p> tags where the articles are broken up into and combines them, then parses them back into their individual articles into a list. Then writes them to a file.                    
-def seperate_articles(article_body):
-    joined_articles = " ".join(article_body)
-    parsed_list = joined_articles.split(' (Reuters)')
-    with open('articles/news_art.txt', 'w') as f:
-        for item in parsed_list:
-            f.write("%s\n" % item)
-
-
-
-
-
+def dict_file(organized_list):
+    with open('append_articles.txt', 'a') as f:
+        json.dump(organized_list, f)
+    
+    
 
 next_page()
 
-##to get the headlines:
-""" 
-        news_headline = soup.find('h1', class_='Headline-headline-2FXIq Headline-black-OogpV ArticleHeader-headline-NlAqj').text """
+
 
 
  
-""" if __name__ == '__main__':
-    while True:
-        #set up a for loop
-        article_url()
-        second_pages(next_url)
-        time_wait = 5
-        print(f'waiting {time_wait} minutes....')
-        time.sleep(time_wait * 60)   """
