@@ -6,7 +6,8 @@ collects news from /world page of reuters, function built in to go to next page 
 ### To Do:
 ~~Figure out how to continuously loop to the next page.~~ <br>
 ~~clean up for loops~~ <br>
-- add headlines/author/date <br>
-- clean up how the data is collected <br>
+~~add headlines/author/date~~ <br>
+~~clean up how the data is collected~~ <br>
+- add date
 - format it as csv 
 - add more categories than world
