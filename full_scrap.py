@@ -7,8 +7,6 @@ import re
 def next_page():
     global article_content
     article_content = []
-    #************* try to make it so it will not revert back to home page
-    #article_path = requests.get('https://www.reuters.com/world').text
     counter = 0
     d = 1
     global next_url
@@ -30,13 +28,13 @@ def next_page():
             next_page = soup.find('div', class_="control-nav")
             anchor_next = next_page.find('a', class_="control-nav-next")
             next_uri = anchor_next.get('href')
-           # d += 1
             next_url = 'https://www.reuters.com/news/archive/worldnews' + next_uri
+            #getting the link on the next button to scrape the next page in second_pages. so this step is always going to scrape the next page, not the current more_content_url page
             second_pages(next_url)
             counter += 1
             d += 1
 
-#find all the links to the individual articles, clean them up (create_url) and put them in list second_list_uri
+#find all the links to the individual articles, clean them up (create_url) and put them in list second_list_uri, return the other functions aka the text file with cleaned up data.
 def second_pages(link_here):
     global second_list_uris
     second_list_uris = []
@@ -68,6 +66,7 @@ def single_article(enter_urls):
         news_path = requests.get(url).text
         soup = BeautifulSoup(news_path, 'lxml')
         news_article = soup.find_all('p', class_='Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x')
+
         for paragraph in news_article:
             par = paragraph.text
             article_content.append(par)
@@ -89,9 +88,9 @@ def seperate_articles(article_body):
 
 next_page()
 
-
-
-
+##to get the headlines:
+""" 
+        news_headline = soup.find('h1', class_='Headline-headline-2FXIq Headline-black-OogpV ArticleHeader-headline-NlAqj').text """
 
 
  
