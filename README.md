@@ -9,3 +9,4 @@ collects news from /world page of reuters, function built in to go to next page 
 - add headlines/author/date <br>
 - clean up how the data is collected <br>
 - format it as csv 
+- add more categories than world
