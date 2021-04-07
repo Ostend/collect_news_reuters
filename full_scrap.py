@@ -108,11 +108,3 @@ next_page()
 
 
  
-""" if __name__ == '__main__':
-    while True:
-        #set up a for loop
-        article_url()
-        second_pages(next_url)
-        time_wait = 5
-        print(f'waiting {time_wait} minutes....')
-        time.sleep(time_wait * 60)   """
