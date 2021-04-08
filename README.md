@@ -4,8 +4,9 @@ collects news from /world page of reuters. </br>
 Columns: author, headline, article </br>
 note: where author is [NONE] signifies it is 'Returers Staff"
 ### Output:
-![df](https://user-images.githubusercontent.com/60686512/114003984-845d8000-985e-11eb-880a-a46d4da1c97f.PNG) 
-![df_console](https://user-images.githubusercontent.com/60686512/114003991-858ead00-985e-11eb-9011-1ff1a458fb7c.PNG)
+
+![df](https://user-images.githubusercontent.com/60686512/114020137-8976fb00-986f-11eb-8c35-9c166c77a964.PNG)
+![df_console](https://user-images.githubusercontent.com/60686512/114020143-8b40be80-986f-11eb-99c3-48f49cd40750.PNG)
 
 ### To Do:
 ~~Figure out how to continuously loop to the next page.~~ <br>
