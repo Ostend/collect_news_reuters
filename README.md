@@ -5,7 +5,7 @@ Columns: author, headline, article </br>
 
 ### Output:
 
-![df](https://user-images.githubusercontent.com/60686512/114020137-8976fb00-986f-11eb-8c35-9c166c77a964.PNG)
+![df](https://user-images.githubusercontent.com/60686512/114027838-19b93e00-9878-11eb-9b08-201259f5502a.PNG)
 ![df_console](https://user-images.githubusercontent.com/60686512/114027739-fc846f80-9877-11eb-9e1e-95d68a8c1cc3.PNG)
 
 
@@ -16,6 +16,7 @@ Columns: author, headline, article </br>
 ~~add headlines/author/date~~ <br>
 ~~clean up how the data is collected~~ <br>
 ~~format it as csv~~ 
+~~- reformat article output. Currently a list of strings. ~~
 - add date
-- reformat article output. Currently a list of strings. 
+
 - add more categories than world
