@@ -71,7 +71,7 @@ def create_url(uri_list):
 def single_article(enter_urls):
     #add to the dictionary (see top of file for global variables) to go inside a big list of all the news articles collected.  
     for url in enter_urls:
-        nested_information = {"author": "", "headline":[], "article":[]}
+        nested_information = {"author": "", "headline":"", "article":[]}
         news_path = requests.get(url).text
         soup = BeautifulSoup(news_path, 'lxml')
         news_headline = soup.find('h1', class_='Headline-headline-2FXIq Headline-black-OogpV ArticleHeader-headline-NlAqj').text
@@ -86,7 +86,8 @@ def single_article(enter_urls):
             nested_information['author']= news_author
         
         news_article = soup.find_all('p', class_='Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x')  
-        nested_information['headline'].append(news_headline)
+        #nested_information['headline'].append(news_headline)
+        nested_information['headline'] = news_headline
         #append all the <p> tags to the individual article key value in the dictionary
         for paragraph in news_article:
             par = paragraph.text
@@ -99,6 +100,7 @@ def single_article(enter_urls):
     
 def to_data_frame(data_frame):
     news_df = pd.DataFrame(data_frame)
+    news_df['author'] = news_df['author'].fillna('Reuters Staff')
     print(news_df.head())
     data = news_df.to_csv(index=False)
     with open('data_frame.csv', 'w') as f:
