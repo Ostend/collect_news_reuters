@@ -2,7 +2,7 @@
 collecting news articles/scrapping </br>
 collects news from /world page of reuters. </br>
 Columns: author, headline, article </br>
-note: where author is [NONE] signifies it is 'Returers Staff"
+
 ### Output:
 
 ![df](https://user-images.githubusercontent.com/60686512/114020137-8976fb00-986f-11eb-8c35-9c166c77a964.PNG)
