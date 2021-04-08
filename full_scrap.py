@@ -71,7 +71,7 @@ def create_url(uri_list):
 def single_article(enter_urls):
     #add to the dictionary (see top of file for global variables) to go inside a big list of all the news articles collected.  
     for url in enter_urls:
-        nested_information = {"author": [], "headline":[], "article":[]}
+        nested_information = {"author": "", "headline":[], "article":[]}
         news_path = requests.get(url).text
         soup = BeautifulSoup(news_path, 'lxml')
         news_headline = soup.find('h1', class_='Headline-headline-2FXIq Headline-black-OogpV ArticleHeader-headline-NlAqj').text
@@ -79,11 +79,11 @@ def single_article(enter_urls):
         
         if(news_author_messy == None):
             news_author = news_author_messy
-            nested_information['author'].append(news_author)
+            nested_information['author']= news_author
         else: 
             news_author = news_author_messy.text
             
-            nested_information['author'].append(news_author)
+            nested_information['author']= news_author
         
         news_article = soup.find_all('p', class_='Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x')  
         nested_information['headline'].append(news_headline)
