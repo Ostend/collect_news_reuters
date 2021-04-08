@@ -15,8 +15,8 @@ Columns: author, headline, article </br>
 ~~clean up for loops~~ <br>
 ~~add headlines/author/date~~ <br>
 ~~clean up how the data is collected~~ <br>
-~~format it as csv~~ 
-~~- reformat article output. Currently a list of strings. ~~
+~~format it as csv~~ <br>
+~~reformat article output. Currently a list of strings. ~~
 - add date
 
 - add more categories than world
