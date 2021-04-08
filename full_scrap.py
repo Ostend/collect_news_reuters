@@ -99,14 +99,18 @@ def single_article(enter_urls):
 
     
 def to_data_frame(data_frame):
+    for news_dict in data_frame:
+        formated_article= ''.join(news_dict['article'])
+        news_dict['article'] = formated_article
+    
     news_df = pd.DataFrame(data_frame)
     news_df['author'] = news_df['author'].fillna('Reuters Staff')
-    print(news_df.head())
+    
     data = news_df.to_csv(index=False)
     with open('data_frame.csv', 'w') as f:
         f.write(data)
 
-   
+
 
 next_page()
 to_data_frame(giant_list)
