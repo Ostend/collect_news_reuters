@@ -15,5 +15,5 @@ note: where author is [NONE] signifies it is 'Returers Staff"
 ~~clean up how the data is collected~~ <br>
 ~~format it as csv~~ 
 - add date
-
+- reformat article output. Currently a list of strings. 
 - add more categories than world
