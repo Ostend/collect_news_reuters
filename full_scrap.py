@@ -100,7 +100,7 @@ def single_article(enter_urls):
 def to_data_frame(data_frame):
     news_df = pd.DataFrame(data_frame)
     print(news_df.head())
-    data = news_df.to_csv(index=True)
+    data = news_df.to_csv(index=False)
     with open('data_frame.csv', 'w') as f:
         f.write(data)
 
