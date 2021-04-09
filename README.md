@@ -3,6 +3,8 @@ collecting news articles/scrapping </br>
 collects news from /world page of reuters. </br>
 Columns: author, headline, article </br>
 
+#### url sources and classnames are in an external file for privacy. 
+
 ### Output:
 
 ![df](https://user-images.githubusercontent.com/60686512/114027838-19b93e00-9878-11eb-9b08-201259f5502a.PNG)
