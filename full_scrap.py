@@ -2,7 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import pandas as pd
+import importlib
 from test_external_source import *
+import test_external_source
+
 
 #source = source.replace('"', ' ')
 global article_content
@@ -12,11 +15,13 @@ giant_list = []
 global nested_information  
 #Get first page url, then all sequential pages, you can determine how many pages.
 def next_page(your_source, part_source, div_, a_):
+    print('scrapping....')
     counter = 0
     d = 1
     global next_url
     while(counter == 0):
         more_content_url = your_source.format(d)
+        
         article_path = requests.get(more_content_url).text
         soup = BeautifulSoup(article_path, 'lxml')
         next_page = soup.find('div', class_=div_)
@@ -39,6 +44,9 @@ def next_page(your_source, part_source, div_, a_):
             second_pages(next_url, second_pages_all_url)
             counter += 1
             d += 1
+    to_data_frame(giant_list)
+    importlib.reload(test_external_source)
+    
    
     
 #find all the links to the individual articles, clean them up (create_url) and put them in list second_list_uri, return the other functions aka the text file with cleaned up data.
@@ -72,12 +80,12 @@ def create_url(uri_list, landing_page):
 def single_article(enter_urls, head_, auth_, art_):
     #add to the dictionary (see top of file for global variables) to go inside a big list of all the news articles collected.  
     for url in enter_urls:
-        nested_information = {"author": "", "headline":"", "article":[]}
+        nested_information = {"author": "", "headline":"", "article":[], 'topic':""}
         news_path = requests.get(url).text
         soup = BeautifulSoup(news_path, 'lxml')
         news_headline = soup.find('h1', class_=head_).text
         news_author_messy = soup.find('p', class_=auth_).a
-        
+        nested_information['topic'] = t
         if(news_author_messy == None):
             news_author = news_author_messy
             nested_information['author']= news_author
@@ -95,26 +103,35 @@ def single_article(enter_urls, head_, auth_, art_):
             article_content.append(par) 
             nested_information['article'].append(par)
         giant_list.append(nested_information)
+        
 
 
 
-    
+
+#change 'w' to 'a' if you want to run the program for more than one topic
 def to_data_frame(data_frame):
     for news_dict in data_frame:
         formated_article= ''.join(news_dict['article'])
         news_dict['article'] = formated_article
-    print(data_frame[0])
+    #print(data_frame[0])
     news_df = pd.DataFrame(data_frame)
     news_df['author'] = news_df['author'].fillna('Reuters Staff')
-    print(news_df.head(15))
+    #print(news_df.head(15))
     data = news_df.to_csv(index=False)
-    with open('data_frame.csv', 'w') as f:
+    with open('data_frame.csv', 'a') as f:
         f.write(data)
+    
 
 
 
-next_page(source, source_uri, div_next_page, a_next_page)
-to_data_frame(giant_list)
+
+
+
+if __name__ == '__main__':
+    #as propmted and notified from user_input(), 4 is to quit()
+    while True:
+        next_page(source, source_uri, div_next_page, a_next_page)
+        
 
 
 
