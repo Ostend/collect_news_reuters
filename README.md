@@ -1,7 +1,7 @@
 # collect_news_reuters
 collecting news articles/scrapping </br>
 collects news from /world page of reuters. </br>
-Columns: author, headline, article </br>
+Columns: author, headline, article, topic  </br>
 <br>
 - imported a module that prompts user for news topic. 
 - module will reload() and append to csv file depending on what user inputs. 
@@ -22,7 +22,8 @@ Columns: author, headline, article </br>
 ~~add headlines/author/date~~ <br>
 ~~clean up how the data is collected~~ <br>
 ~~format it as csv~~ <br>
-~~reformat article output. Currently a list of strings~~
+~~reformat article output. Currently a list of strings~~ <br>
+~~add more categories than world~~
 - add date
 
-- add more categories than world
+
