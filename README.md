@@ -2,6 +2,10 @@
 collecting news articles/scrapping </br>
 collects news from /world page of reuters. </br>
 Columns: author, headline, article </br>
+<br>
+- imported a module that prompts user for news topic. 
+- module will reload() and append to csv file depending on what user inputs. 
+- user can input key to quit()
 
 #### url sources and classnames are in an external file for privacy. 
 
