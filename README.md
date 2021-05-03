@@ -2,11 +2,13 @@
 collecting news articles/scrapping </br>
 collects news from /world page of reuters. </br>
 Columns: author, headline, article, topic  </br>
-<br>
+
+
 - imported a module that prompts user for news topic. 
 - module will reload() and append to csv file depending on what user inputs. 
-- user can input key to quit()
-
+- user can input key to quit() <br>
+## are you interested in using scraper?
+ask me for the second python file that contains modules for initializing scrapper <br>
 #### url sources and classnames are in an external file for privacy. 
 
 ### Output:
